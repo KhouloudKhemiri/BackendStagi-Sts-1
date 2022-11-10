@@ -1,10 +1,15 @@
 package com.example.demo.controllers;
 
 
+import java.sql.Date
+;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +26,7 @@ import com.example.demo.services.UtilisateurService;
 
 
 
-
+@CrossOrigin("*") // cht3ml
 @RestController
 @RequestMapping("/User")
 public class UtilisateurController {
@@ -29,20 +34,26 @@ public class UtilisateurController {
 	private UtilisateurService utlisateurService;
 	
 	
-	@GetMapping
+	@GetMapping("/user")
 	public List<Utilisateur> GetUser() {
 		return utlisateurService.getAllUtilisateurs();
 	}
 
-	@PostMapping
+	@PostMapping("/ps")
 	public  Utilisateur PostUser(@RequestBody Utilisateur utlisateur) {
 		return utlisateurService.createUtlisateur(utlisateur);
 	}
 
-	@GetMapping(path="/login")
-	public Utilisateur loginUtilisateur(@RequestBody loginRequest LoginRequest) {
-		return utlisateurService.login(LoginRequest.getEmail(), LoginRequest.getPassword());
-	}
+	@PostMapping(path="/login")
+	  public ResponseEntity<List<Utilisateur>>findBylogin(@RequestBody Utilisateur u){
+			List<Utilisateur> utilisateur=utlisateurService. findByMailAndPasseword(u.getMail(), u.getPasseWord());
+			  
+			if(utilisateur.isEmpty()) {
+				return new ResponseEntity<List<Utilisateur>>(HttpStatus.UNAUTHORIZED);
+			}else
+			  return new ResponseEntity<List<Utilisateur>>(utilisateur,HttpStatus.OK);
+			  
+		  }
 
 	@DeleteMapping(path= {"/{id}"})
 	public void DeleteUser(@PathVariable Long  id) {
@@ -57,5 +68,9 @@ public class UtilisateurController {
 	public Utilisateur PutUser(@RequestBody Utilisateur utilisateur) {
 		return utlisateurService.UpdateUtilisateur(utilisateur);
 	}
-
+	
+	
+	
+	
+	
 }

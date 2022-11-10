@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import java.util.Optional;
@@ -59,10 +60,8 @@ public class UtlisateurServiceImp implements UtilisateurService {
 	
 
 	@Override
-	public Utilisateur login(String mail, String passeWord) {
-		
-		return utlisateurRepository.findByMailAndPasseWord(mail, passeWord) ;
+	public List<Utilisateur>  findByMailAndPasseword(String mail, String passeWord) {
+		return utlisateurRepository.findByMailAndPasseWord( mail, passeWord);
 	}
 	
-	
-	}
+}

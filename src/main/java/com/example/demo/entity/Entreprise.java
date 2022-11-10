@@ -1,43 +1,40 @@
-package com.example.demo.aplication;
+package com.example.demo.entity;
+
 import java.io.Serializable;
-
-
-
 import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 @Entity
-public class Utilisateur implements Serializable {
+public class Entreprise implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String FristName;
-	private String LastName;
+	private String matricule;
+	private String name;
 	private String mail;
 	private String passeWord;
 	private Date starteDate;
-	private Boolean active;
-	private int age;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getFristName() {
-		return FristName;
+	public String getMatricule() {
+		return matricule;
 	}
-	public void setFristName(String fristName) {
-		FristName = fristName;
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
 	}
-	public String getLastName() {
-		return LastName;
+	public String getName() {
+		return name;
 	}
-	public void setLastName(String lastName) {
-		LastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getMail() {
 		return mail;
@@ -63,13 +60,6 @@ public class Utilisateur implements Serializable {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
+	private Boolean active;
 	
-	
-
 }
